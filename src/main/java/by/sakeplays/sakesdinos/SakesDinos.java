@@ -1,8 +1,13 @@
 package by.sakeplays.sakesdinos;
 
+import by.sakeplays.sakesdinos.client.VelociraptorRenderer;
+import by.sakeplays.sakesdinos.entity.ModEntities;
+import by.sakeplays.sakesdinos.entity.VelociraptorEntity;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -83,6 +88,9 @@ public class SakesDinos
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        ModEntities.ENTITIES.register(modEventBus);
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -123,6 +131,9 @@ public class SakesDinos
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+
+            EntityRenderers.register(ModEntities.VELOCIRAPTOR.get(), VelociraptorRenderer::new);
+
         }
     }
 }
